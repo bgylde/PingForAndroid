@@ -66,3 +66,5 @@ freeline_project_description.json
 rocoofix/
 Users/
 *.local_bak
+
+app/.externalNativeBuild
