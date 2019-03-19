@@ -7,17 +7,24 @@
 
     <Button
         android:id="@+id/ping"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:text="ping"/>
 
     <Button
         android:id="@+id/opengl"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ping"
-        android:layout_centerInParent="true"
         android:text="opengl"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:lines="10"
+        android:layout_below="@id/opengl"
+        android:textSize="16sp"
+        android:text="text:"/>
 
 </RelativeLayout>

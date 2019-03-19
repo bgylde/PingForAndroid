@@ -2,8 +2,8 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := native-color
-LOCAL_SRC_FILES := native_color.c ping.c
+LOCAL_MODULE    := native
+LOCAL_SRC_FILES := native_jni.c ping.c utils.c
 
 # for logging
 LOCAL_LDLIBS    += -llog -lEGL -lGLESv2

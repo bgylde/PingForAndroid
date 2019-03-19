@@ -11,24 +11,12 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <pthread.h>
-#include <libgen.h>
 
-#ifdef __ANDROID__
-#include<android/log.h>
-#define TAG "ping"
-#define pri_debug(format, args...) __android_log_print(ANDROID_LOG_DEBUG, TAG, "[%s:%d]" format, basename(__FILE__), __LINE__, ##args)
-#define pri_error(format, args...) __android_log_print(ANDROID_LOG_DEBUG, TAG, "[%s:%d]" format, basename(__FILE__), __LINE__, ##args)
-#else
-#define pri_debug(format, args...) printf("[%s:%d]" format, basename(__FILE__), __LINE__, ##args)
-#define pri_error(format, args...) printf("[%s:%d]" format, basename(__FILE__), __LINE__, ##args)
-#endif
+#include "utils.h"
+#include "ping.h"
 
 #define DATA_SIZE 32
 #define MAX_RECV_SIZE 1024
-
-#define BOOL    int
-#define FALSE   -1
-#define TRUE    0
 
 typedef struct _TAG_IP_HEADER
 {
@@ -67,8 +55,9 @@ typedef struct _TAG_THREAD_DATA
     u_int32_t   times;
     ICMP_PACKET * icmp_packet;
     char        * buffer;
-    u_int8_t    send_flag;
+    u_int32_t   buffer_len;
     struct sockaddr_in * sockaddr;
+    u_int8_t    send_flag;
 } THREAD_DATA;
 
 static u_int16_t generation_checksum(u_int16_t * buf, u_int32_t size);
@@ -267,6 +256,10 @@ static void * recv_imcp(void *arg)
             if(read_length >= (0 + sizeof(ICMP_PACKET)))
             {
                 index++;
+                snprintf(thread_data->buffer, thread_data->buffer_len, "%s%ld bytes from (%s): icmp_seq=%d time=%.2f ms\n",
+                 thread_data->buffer, read_length, inet_ntoa(from.sin_addr),
+                 recv_icmp->icmp_header.icmp_seq / 256, get_time_interval(&recv_icmp->icmp_time, &end));
+
                 pri_debug("%ld bytes from (%s): icmp_seq=%d ttl=%d time=%.2f ms\n",
                           read_length, inet_ntoa(from.sin_addr), recv_icmp->icmp_header.icmp_seq / 256,
                           ip_ttl, get_time_interval(&recv_icmp->icmp_time, &end));
@@ -277,6 +270,7 @@ static void * recv_imcp(void *arg)
             if (errno != EAGAIN)
             {
                 pri_error("receive data error: %s\n", strerror(errno));
+                snprintf(thread_data->buffer, thread_data->buffer_len, "receive data error: %s\n", strerror(errno))
             }
         }
     }
@@ -284,7 +278,7 @@ static void * recv_imcp(void *arg)
     return NULL;
 }
 
-static BOOL get_ping_result(char * domain, char * res_buffer, u_int32_t times)
+BOOL get_ping_result(const char * domain, u_int32_t times, char * res_buffer, int buffer_len)
 {
     int ret = FALSE;
     int client_fd = -1;
@@ -303,8 +297,9 @@ static BOOL get_ping_result(char * domain, char * res_buffer, u_int32_t times)
 
     THREAD_DATA thread_data;
 
-    if (res_buffer == NULL || domain == NULL)
+    if (res_buffer == NULL || domain == NULL || buffer_len == 0)
     {
+        pri_error("res_buffer: %s, domain: %s, buffer_len: %d\n", res_buffer, domain, buffer_len);
         return ret;
     }
 
@@ -366,6 +361,7 @@ static BOOL get_ping_result(char * domain, char * res_buffer, u_int32_t times)
 
     icmp_packet->icmp_sum_flag = generation_checksum((u_int16_t *)icmp_packet, sizeof(ICMP_PACKET));
     pri_debug("PING %s (%s).\n", domain, inet_ntoa(*((struct in_addr*)&dest_ip)));
+    snprintf(res_buffer, buffer_len, "PING %s (%s).\n", domain, inet_ntoa(*((struct in_addr*)&dest_ip)));
 
     thread_data.send_flag   = 1;
     thread_data.sockaddr    = &dest_socket_addr;
@@ -408,14 +404,14 @@ static BOOL get_ping_result(char * domain, char * res_buffer, u_int32_t times)
     return ret;
 }
 
-int ping_host_ip(const char * domain)
-{
-    char buffer[MAX_RECV_SIZE];
-    get_ping_result(domain, buffer, 10);
-
-    pri_debug("ping end.\n");
-    return 0;
-}
+//int ping_host_ip(const char * domain)
+//{
+//    char buffer[MAX_RECV_SIZE];
+//    get_ping_result(domain, buffer, 10);
+//
+//    pri_debug("ping end.\n");
+//    return 0;
+//}
 
 #ifndef __ANDROID__
 int main(int argc, char * argv[])

@@ -36,7 +36,7 @@ JNIEXPORT void JNICALL Java_com_sohu_opengl_NativeMethodHelper_onDrawFrame
  * Method:    ping
  * Signature: (Ljava/lang/String;)I
  */
-JNIEXPORT jint JNICALL Java_com_sohu_opengl_NativeMethodHelper_ping
+JNIEXPORT jstring JNICALL Java_com_sohu_opengl_NativeMethodHelper_ping
   (JNIEnv *, jclass, jstring);
 
 #ifdef __cplusplus
