@@ -13,7 +13,7 @@
  * Method:    ping
  * Signature: (Ljava/lang/String;)I
  */
-JNIEXPORT jstring JNICALL Java_com_sohu_opengl_NativeMethodHelper_ping
+JNIEXPORT jstring JNICALL Java_com_sohu_ping_NativeMethodHelper_ping
   (JNIEnv *env, jclass nclass, jstring nstring)
 {
     char * domain = NULL;

@@ -23,7 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/default_domain"
-        android:layout_below="@id/dns_ping"/>
+        android:text="@string/default_domain"
+        android:layout_below="@id/dns_ping"
+        android:inputType="textUri" />
 
     <TextView
         android:id="@+id/text"

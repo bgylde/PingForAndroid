@@ -1,4 +1,4 @@
-package com.sohu.opengl;
+package com.sohu.ping;
 
 /**
  * Created by wangyan on 2019/3/14

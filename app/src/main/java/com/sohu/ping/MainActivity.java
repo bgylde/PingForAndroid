@@ -1,4 +1,4 @@
-package com.sohu.opengl;
+package com.sohu.ping;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.sohu.opengl.utils.DnsLookup;
-import com.sohu.opengl.utils.LogUtils;
+import com.sohu.ping.utils.DnsLookup;
+import com.sohu.ping.utils.LogUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.ping:
+                    text.setText("");
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     }).start();
                     break;
                 case R.id.dns_ping:
+                    text.setText("");
                     new Thread(new Runnable() {
                         @Override
                         public void run() {

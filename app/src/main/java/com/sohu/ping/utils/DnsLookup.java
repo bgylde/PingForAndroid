@@ -1,4 +1,4 @@
-package com.sohu.opengl.utils;
+package com.sohu.ping.utils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
