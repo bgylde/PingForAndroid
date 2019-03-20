@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">OpenGLTest</string>
+    <string name="app_name">PingTest</string>
+    <string name="ping">ping</string>
+    <string name="dns_ping">dns-ping</string>
+    <string name="default_domain">www.baidu.com</string>
+    <string name="default_text">ping 1.0</string>
 </resources>

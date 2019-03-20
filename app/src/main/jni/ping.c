@@ -270,7 +270,7 @@ static void * recv_imcp(void *arg)
             if (errno != EAGAIN)
             {
                 pri_error("receive data error: %s\n", strerror(errno));
-                snprintf(thread_data->buffer, thread_data->buffer_len, "receive data error: %s\n", strerror(errno))
+                snprintf(thread_data->buffer, thread_data->buffer_len, "receive data error: %s\n", strerror(errno));
             }
         }
     }

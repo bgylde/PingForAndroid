@@ -7,29 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     com_sohu_opengl_NativeMethodHelper
- * Method:    surfaceCreated
- * Signature: (I)V
- */
-JNIEXPORT void JNICALL Java_com_sohu_opengl_NativeMethodHelper_surfaceCreated
-  (JNIEnv *, jclass, jint);
-
-/*
- * Class:     com_sohu_opengl_NativeMethodHelper
- * Method:    surfaceChanged
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_com_sohu_opengl_NativeMethodHelper_surfaceChanged
-  (JNIEnv *, jclass, jint, jint);
-
-/*
- * Class:     com_sohu_opengl_NativeMethodHelper
- * Method:    onDrawFrame
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_sohu_opengl_NativeMethodHelper_onDrawFrame
-  (JNIEnv *, jclass);
 
 /*
  * Class:     com_sohu_opengl_NativeMethodHelper

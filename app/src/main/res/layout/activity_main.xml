@@ -9,22 +9,30 @@
         android:id="@+id/ping"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ping"/>
+        android:text="@string/ping"/>
 
     <Button
-        android:id="@+id/opengl"
+        android:id="@+id/dns_ping"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ping"
-        android:text="opengl"/>
+        android:text="@string/dns_ping"/>
+
+    <EditText
+        android:id="@+id/domain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/default_domain"
+        android:layout_below="@id/dns_ping"/>
 
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:lines="10"
-        android:layout_below="@id/opengl"
+        android:layout_below="@id/domain"
+        android:layout_marginTop="10dp"
         android:textSize="16sp"
-        android:text="text:"/>
+        android:text="@string/default_text"/>
 
 </RelativeLayout>
