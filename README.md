@@ -1,0 +1,2 @@
+# PingForAndroid
+C库采用SOCK_DGRAM方式构建icmp包，避开raw socket必须root权限的限制，实现ping功能
